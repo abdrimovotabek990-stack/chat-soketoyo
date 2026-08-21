@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <input id="msg" />
+        <button onclick="send()">Send</button>
+
+        <ul id="list"></ul>
+
+        <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+        <script>
+            const socket = io("http://localhost:3000"); // 🔥 MUHIM
+
+            const list = document.getElementById("list");
+
+            socket.on("message", (data) => {
+                const li = document.createElement("li");
+                li.innerText = data;
+                list.appendChild(li);
+            });
+
+            function send() {
+                const msg = document.getElementById("msg").value;
+               
+                socket.emit("message", msg);
+
+            }
+        </script>
+    </body>
+</html>
